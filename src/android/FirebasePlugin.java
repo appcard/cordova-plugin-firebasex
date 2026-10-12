@@ -2891,9 +2891,8 @@ public class FirebasePlugin extends CordovaPlugin {
             String id = options.getString("id");
             Log.i(TAG, "Creating channel id=" + id);
 
-            if (channelExists(id)) {
-                deleteChannel(id);
-            }
+            // Deleting an existing channel removes every notification posted to it, and this runs on
+            // every app start. createNotificationChannel() on an existing id keeps it in place.
 
             NotificationManager nm = (NotificationManager) applicationContext.getSystemService(Context.NOTIFICATION_SERVICE);
             String packageName = cordovaActivity.getPackageName();
